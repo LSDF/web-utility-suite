@@ -1,0 +1,68 @@
+name: Deploy to Hostinger
+
+# Pushes the built site to Hostinger over FTPS on every commit to main.
+#
+# Required repository secrets (Settings > Secrets and variables > Actions):
+#   FTP_SERVER    ftp.yourdomain.com
+#   FTP_USERNAME  u123456789.deploy
+#   FTP_PASSWORD  ********
+#   FTP_DIR       /public_html/            (optional, defaults to /public_html/)
+#
+# config/secrets.php is never in the repo, so it is excluded from the sync and
+# stays untouched on the server between deploys.
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Lint every PHP file
+        run: |
+          find . -name "*.php" -not -path "./vendor/*" -print0 \
+            | xargs -0 -n1 -P4 php -l
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Optional: replace the Tailwind CDN with a compiled stylesheet.
+      # Uncomment once you add tailwind.config.js and package.json.
+      # - name: Build Tailwind
+      #   run: |
+      #     npm ci
+      #     npx tailwindcss -i ./assets/css/tailwind.src.css -o ./assets/css/tailwind.min.css --minify
+
+      - name: Deploy over FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_DIR || '/public_html/' }}
+          protocol: ftps
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            config/secrets.php
+            README.md
+            DEPLOYMENT.md
+            .github/**
