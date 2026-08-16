@@ -1,0 +1,160 @@
+/* =========================================================================
+   assets/css/styles.css
+   -------------------------------------------------------------------------
+   Tailwind provides 95% of the styling from the CDN (or from the compiled
+   build - see DEPLOYMENT.md). This file only holds the handful of reusable
+   component classes and a few things utilities cannot express.
+
+   NOTE: plain CSS is used on purpose. @apply only works when Tailwind is
+   compiled with the CLI; if you switch to the CLI build you can replace the
+   bodies below with @apply directives and keep the same class names.
+   ========================================================================= */
+
+:root {
+  --brand-50:  #eef6ff;
+  --brand-100: #d9ecff;
+  --brand-400: #59a6ff;
+  --brand-500: #3385fc;
+  --brand-600: #1f66f1;
+  --brand-700: #1a51de;
+  --ring:      rgba(31, 102, 241, 0.35);
+}
+
+html { -webkit-text-size-adjust: 100%; }
+body { font-feature-settings: "cv02","cv03","cv04","cv11"; }
+
+/* ------------------------------------------------------------- surfaces */
+.card {
+  border: 1px solid rgb(226 232 240);
+  background: #fff;
+  border-radius: 0.875rem;
+  padding: 1.25rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.dark .card { border-color: rgb(30 41 59); background: rgb(15 23 42); }
+
+/* ---------------------------------------------------------- navigation */
+.nav-link {
+  display: block;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: rgb(71 85 105);
+  text-decoration: none;
+  transition: background-color .15s ease, color .15s ease;
+}
+.nav-link:hover { background: rgb(241 245 249); color: rgb(15 23 42); }
+.dark .nav-link { color: rgb(148 163 184); }
+.dark .nav-link:hover { background: rgb(30 41 59); color: #fff; }
+
+.nav-link-active,
+.nav-link[aria-current="page"] {
+  background: var(--brand-50);
+  color: var(--brand-700);
+  font-weight: 600;
+  box-shadow: inset 2px 0 0 var(--brand-600);
+}
+.dark .nav-link-active,
+.dark .nav-link[aria-current="page"] {
+  background: rgba(31, 102, 241, .15);
+  color: var(--brand-400);
+}
+
+/* -------------------------------------------------------------- buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border-radius: .625rem;
+  padding: .55rem 1rem;
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color .15s ease, border-color .15s ease, opacity .15s ease;
+}
+.btn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ring); }
+.btn:disabled { opacity: .55; cursor: not-allowed; }
+
+.btn-primary { background: var(--brand-600); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--brand-700); }
+
+.btn-ghost { background: transparent; border-color: rgb(203 213 225); color: rgb(51 65 85); }
+.btn-ghost:hover:not(:disabled) { background: rgb(241 245 249); }
+.dark .btn-ghost { border-color: rgb(51 65 85); color: rgb(203 213 225); }
+.dark .btn-ghost:hover:not(:disabled) { background: rgb(30 41 59); }
+
+/* --------------------------------------------------------------- inputs */
+.field {
+  width: 100%;
+  border-radius: .625rem;
+  border: 1px solid rgb(203 213 225);
+  background: #fff;
+  padding: .55rem .75rem;
+  font-size: .875rem;
+  color: rgb(15 23 42);
+}
+.field:focus { outline: none; border-color: var(--brand-500); box-shadow: 0 0 0 3px var(--ring); }
+.dark .field { border-color: rgb(51 65 85); background: rgb(2 6 23); color: rgb(226 232 240); }
+
+textarea.field { min-height: 10rem; resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+.label { display: block; font-size: .8125rem; font-weight: 600; margin-bottom: .35rem; color: rgb(51 65 85); }
+.dark .label { color: rgb(203 213 225); }
+.hint { font-size: .75rem; color: rgb(100 116 139); }
+
+/* --------------------------------------------------------------- alerts */
+.alert { border-radius: .625rem; padding: .75rem 1rem; font-size: .875rem; border: 1px solid; }
+.alert-error   { background: #fef2f2; border-color: #fecaca; color: #991b1b; }
+.alert-success { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
+.alert-info    { background: var(--brand-50); border-color: var(--brand-100); color: var(--brand-700); }
+.dark .alert-error   { background: rgba(153,27,27,.18); border-color: rgba(248,113,113,.35); color: #fca5a5; }
+.dark .alert-success { background: rgba(22,101,52,.18); border-color: rgba(74,222,128,.35); color: #86efac; }
+.dark .alert-info    { background: rgba(31,102,241,.15); border-color: rgba(89,166,255,.35); color: #93c5fd; }
+
+/* -------------------------------------------------------------- strength */
+.meter { height: .5rem; border-radius: 999px; background: rgb(226 232 240); overflow: hidden; }
+.dark .meter { background: rgb(30 41 59); }
+.meter > span { display: block; height: 100%; width: 0; transition: width .25s ease, background-color .25s ease; }
+
+/* ------------------------------------------------------------- dropzone */
+.dropzone {
+  border: 2px dashed rgb(203 213 225);
+  border-radius: .875rem;
+  padding: 2rem 1rem;
+  text-align: center;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+.dropzone.is-dragging { border-color: var(--brand-500); background: var(--brand-50); }
+.dark .dropzone { border-color: rgb(51 65 85); }
+
+/* --------------------------------------------------------------- tables */
+.table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+.table th, .table td { text-align: left; padding: .5rem .75rem; border-bottom: 1px solid rgb(226 232 240); vertical-align: top; }
+.dark .table th, .dark .table td { border-color: rgb(30 41 59); }
+.table th { font-weight: 600; color: rgb(71 85 105); }
+
+/* -------------------------------------------------------------- spinner */
+.spinner {
+  width: 1rem; height: 1rem; border-radius: 999px;
+  border: 2px solid currentColor; border-top-color: transparent;
+  animation: wus-spin .7s linear infinite; display: inline-block;
+}
+@keyframes wus-spin { to { transform: rotate(360deg); } }
+
+/* --------------------------------------------------------- route change */
+#tool-root { min-height: 12rem; }
+#tool-root.is-loading { opacity: .5; pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+/* ------------------------------------------------------- print friendly */
+@media print {
+  #sidebar, header, footer, .no-print { display: none !important; }
+  .card { border: none; box-shadow: none; padding: 0; }
+}
