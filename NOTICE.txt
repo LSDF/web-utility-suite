@@ -1,1 +1,55 @@
-notice
+Web Utility Suite
+Copyright (c) 2026 Shehan Dinushan
+
+This product is released under the MIT License; see LICENSE.txt for the full
+text. The notices below cover third-party code that the application loads and
+third-party services it can be configured to call. None of them are relicensed
+by this project.
+
+--------------------------------------------------------------------------
+1. Third-party code loaded by the browser
+--------------------------------------------------------------------------
+
+Tailwind CSS (Play CDN, cdn.tailwindcss.com)
+    Copyright (c) Tailwind Labs, Inc.
+    Licensed under the MIT License.
+    https://github.com/tailwindlabs/tailwindcss
+
+qrcode / node-qrcode 1.5.3 (jsDelivr) - used by the QR code generator
+    Copyright (c) 2012 Ryan Day
+    Licensed under the MIT License.
+    https://github.com/soldair/node-qrcode
+
+JsBarcode 3.11.6 (jsDelivr) - used by the barcode generator
+    Copyright (c) Johan Lindell
+    Licensed under the MIT License.
+    https://github.com/lindell/JsBarcode
+
+No third-party library is vendored into this repository; each one is fetched
+from its public CDN at runtime and remains the property of its authors.
+
+--------------------------------------------------------------------------
+2. Optional third-party services
+--------------------------------------------------------------------------
+
+The six proxied tools are inert until you supply credentials in
+config/secrets.php. When configured, requests are forwarded server side to the
+provider you choose, and your use of that provider is governed by its own terms
+and privacy policy:
+
+    CloudConvert v2 (default) - PDF to Word and Word to PDF, api/convert.php
+    mail.tm (default)         - 10 minute disposable inbox, api/tempmail.php
+    Any OpenAI-compatible API - text summarizer and code explainer, api/ai.php
+    Public DNS over HTTPS resolvers - fallback path in api/dns.php
+
+This project is not affiliated with, endorsed by, or sponsored by any of the
+providers above.
+
+--------------------------------------------------------------------------
+3. Trademarks
+--------------------------------------------------------------------------
+
+PDF is a trademark of Adobe Inc. Microsoft Word, DOC and DOCX are trademarks of
+Microsoft Corporation. EAN and UPC are administered by GS1. All other product
+names, logos and brands mentioned in the tool copy are the property of their
+respective owners and are used for identification purposes only.
