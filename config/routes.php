@@ -22,7 +22,7 @@ return [
         'slug'        => '',
         'category'    => null,
         'nav'         => 'Home',
-        'title'       => 'Web Utility Suite - 14 Free Online Developer & Business Tools',
+        'title'       => 'Web Utility Suite - 15 Free Online Developer & Business Tools',
         'h1'          => 'Free online tools for developers, marketers and everyday work',
         'description' => 'A fast, private, ad-light collection of free web tools: PDF to Word, QR codes, hashing, JSON formatting, JWT decoding, temporary email and AI helpers. No signup required.',
         'keywords'    => 'free online tools, web utility suite, developer tools, converter, generator',
