@@ -318,9 +318,10 @@ function initChrome() {
   }
 
   // Theme
+  // Dark is the house style: index.php already ships the class on <html>,
+  // so only an explicit "light" choice takes it away.
   const stored = localStorage.getItem('wus-theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  if (stored === 'dark' || (!stored && prefersDark)) document.documentElement.classList.add('dark');
+  document.documentElement.classList.toggle('dark', stored !== 'light');
 
   const themeBtn = qs('[data-theme-toggle]');
   if (themeBtn) {
