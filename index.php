@@ -130,11 +130,11 @@ foreach ($routes as $key => $item) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="en" class="h-full scroll-smooth">
+<html lang="en" class="h-full scroll-smooth dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0f172a">
+<meta name="theme-color" content="#04070a">
 
 <title><?= e($title) ?></title>
 <meta name="description" content="<?= e($description) ?>">
@@ -178,10 +178,13 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        brand: { 50:'#eef6ff',100:'#d9ecff',200:'#bcdcff',300:'#8ec6ff',400:'#59a6ff',
-                 500:'#3385fc',600:'#1f66f1',700:'#1a51de',800:'#1c44b4',900:'#1d3d8f' }
+        brand: { 50:'#04120c',100:'#061c13',200:'#0a2f1f',300:'#0e6b3f',400:'#4dffa1',
+                     500:'#22ff88',600:'#12e878',700:'#0bbf61',800:'#0a8f4a',900:'#075f32' }
       },
-      fontFamily: { sans: ['Inter','ui-sans-serif','system-ui','sans-serif'] }
+      fontFamily: {
+            sans: ['ui-monospace','JetBrains Mono','Fira Code','SFMono-Regular','Menlo','Consolas','monospace'],
+            mono: ['ui-monospace','JetBrains Mono','Fira Code','SFMono-Regular','Menlo','Consolas','monospace']
+          }
     }
   }
 };
@@ -193,7 +196,10 @@ tailwind.config = {
 
 <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-3 focus:rounded focus:bg-brand-600 focus:px-4 focus:py-2 focus:text-white">Skip to content</a>
 
-<div class="flex min-h-full">
+<!-- The name, behind every page. Decorative only: aria-hidden, no pointer events. -->
+<div class="wordmark" aria-hidden="true"><span>SHADOW</span><span>CHEETAH</span></div>
+
+<div class="relative z-10 flex min-h-full">
 
   <?php include __DIR__ . '/partials/sidebar.php'; ?>
 
