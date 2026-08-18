@@ -265,7 +265,7 @@ tailwind.config = {
 </script>
 
 <!-- Third party generators, loaded once, zero server cost -->
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js" defer></script>
 <script type="module" src="/assets/js/app.js"></script>
 </body>
