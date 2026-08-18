@@ -11,4 +11,4 @@ Disallow: /config/
 # Generated from config/routes.php by sitemap.php via the .htaccess rewrite.
 # Replace the host below with the value you set for SITE_URL in
 # config/secrets.php, then submit it in Google Search Console.
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://shehanly.com/sitemap.xml
