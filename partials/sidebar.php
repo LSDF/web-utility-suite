@@ -14,7 +14,7 @@
 
   <div class="flex h-16 items-center gap-2 border-b border-slate-200 px-5 dark:border-slate-800">
     <a href="/" data-spa class="flex items-center gap-2 font-semibold text-slate-900 dark:text-white">
-      <span class="grid h-8 w-8 place-items-center rounded-lg bg-brand-600 text-sm font-bold text-white">WU</span>
+      <span class="grid h-8 w-8 place-items-center rounded-lg bg-brand-600 text-sm font-bold text-white">SH</span>
       <span><?= e($siteName) ?></span>
     </a>
     <button type="button" data-sidebar-close
