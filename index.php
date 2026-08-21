@@ -143,6 +143,15 @@ foreach ($routes as $key => $item) {
 <!DOCTYPE html>
 <html lang="en" class="h-full scroll-smooth dark">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9GZ7KX95GX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9GZ7KX95GX');
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#04070a">
