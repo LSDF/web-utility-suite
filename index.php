@@ -190,7 +190,7 @@ foreach ($routes as $key => $item) {
       extend: {
         colors: {
           brand: { 50:'#04120c',100:'#061c13',200:'#0a2f1f',300:'#0e6b3f',400:'#4dffa1',
-                    500:'#22ff88',600:'#12e878',700:'#0bbf61',800:'#0a8f4a',900:'#075f32' }
+                   500:'#22ff88',600:'#12e878',700:'#0bbf61',800:'#0a8f4a',900:'#075f32' }
         },
         fontFamily: {
           sans: ['ui-monospace','JetBrains Mono','Fira Code','SFMono-Regular','Menlo','Consolas','monospace'],
@@ -228,52 +228,62 @@ foreach ($routes as $key => $item) {
 </header>
 
 <?php if ($isHome && !$is404): ?>
+<!-- Hero: quick visual intro with an illustration -->
+<section class="mb-8 overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-brand-50 via-white to-white shadow-sm dark:border-slate-800 dark:from-slate-900 dark:via-slate-950 dark:to-slate-950">
+<div class="grid items-center gap-8 p-6 sm:grid-cols-2 sm:p-10">
+<div>
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">All your everyday tools, in one place</h2>
+<p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400">Convert files, encode data, generate codes and inspect tokens - fifteen free utilities that load instantly, keep your data private and never ask you to sign up.</p>
+</div>
+<img src="/assets/img/home/hero.svg" alt="Illustration of the Web Utility Suite tool categories" class="mx-auto w-full max-w-sm drop-shadow-lg" loading="eager" width="480" height="360">
+</div>
+</section>
 <!-- Quick trust signals, each with a small original inline icon -->
 <section class="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-    <div class="card">
-        <svg class="h-6 w-6 text-brand-600 dark:text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <circle cx="12" cy="12" r="9"></circle>
-            <path d="M8.5 12.5l2.5 2.5 5-5"></path>
-        </svg>
-        <h2 class="mt-3 text-base font-semibold text-slate-900 dark:text-white">No sign-up, ever</h2>
-        <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Every tool works the moment the page loads. There is no account to create and nothing to remember a password for.</p>
-    </div>
-    <div class="card">
-        <svg class="h-6 w-6 text-brand-600 dark:text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <rect x="5" y="11" width="14" height="9" rx="2"></rect>
-            <path d="M8 11V7a4 4 0 018 0v4"></path>
-        </svg>
-        <h2 class="mt-3 text-base font-semibold text-slate-900 dark:text-white">Privacy by design</h2>
-        <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Nine of the fifteen tools run entirely in your browser. The rest proxy through this domain so a provider key never reaches client-side code.</p>
-    </div>
-    <div class="card">
-        <svg class="h-6 w-6 text-brand-600 dark:text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path d="M12 4l1.8 4.6L18 10l-4.2 1.4L12 16l-1.8-4.6L6 10l4.2-1.4z"></path>
-        </svg>
-        <h2 class="mt-3 text-base font-semibold text-slate-900 dark:text-white">Free, funded by light ads</h2>
-        <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">No subscriptions or paywalls. Clearly labelled advertising covers hosting so every tool stays free to use.</p>
-    </div>
-    <div class="card">
-        <svg class="h-6 w-6 text-brand-600 dark:text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <rect x="3" y="4" width="18" height="12" rx="1.5"></rect>
-            <path d="M8 20h8M12 16v4"></path>
-        </svg>
-        <h2 class="mt-3 text-base font-semibold text-slate-900 dark:text-white">Works on any device</h2>
-        <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Every tool is a normal web page with a real URL, so it works the same on a phone, a locked-down work laptop or a tablet.</p>
-    </div>
+<div class="card">
+<svg class="h-6 w-6 text-brand-600 dark:text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+<circle cx="12" cy="12" r="9"></circle>
+<path d="M8.5 12.5l2.5 2.5 5-5"></path>
+</svg>
+<h2 class="mt-3 text-base font-semibold text-slate-900 dark:text-white">No sign-up, ever</h2>
+<p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Every tool works the moment the page loads. There is no account to create and nothing to remember a password for.</p>
+</div>
+<div class="card">
+<svg class="h-6 w-6 text-brand-600 dark:text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+<rect x="5" y="11" width="14" height="9" rx="2"></rect>
+<path d="M8 11V7a4 4 0 018 0v4"></path>
+</svg>
+<h2 class="mt-3 text-base font-semibold text-slate-900 dark:text-white">Privacy by design</h2>
+<p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Nine of the fifteen tools run entirely in your browser. The rest proxy through this domain so a provider key never reaches client-side code.</p>
+</div>
+<div class="card">
+<svg class="h-6 w-6 text-brand-600 dark:text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+<path d="M12 4l1.8 4.6L18 10l-4.2 1.4L12 16l-1.8-4.6L6 10l4.2-1.4z"></path>
+</svg>
+<h2 class="mt-3 text-base font-semibold text-slate-900 dark:text-white">Free, funded by light ads</h2>
+<p class="mt-1 text-sm text-slate-600 dark:text-slate-400">No subscriptions or paywalls. Clearly labelled advertising covers hosting so every tool stays free to use.</p>
+</div>
+<div class="card">
+<svg class="h-6 w-6 text-brand-600 dark:text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+<rect x="3" y="4" width="18" height="12" rx="1.5"></rect>
+<path d="M8 20h8M12 16v4"></path>
+</svg>
+<h2 class="mt-3 text-base font-semibold text-slate-900 dark:text-white">Works on any device</h2>
+<p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Every tool is a normal web page with a real URL, so it works the same on a phone, a locked-down work laptop or a tablet.</p>
+</div>
 </section>
 <?php endif; ?>
 
 <?php if (!empty($route['body'])): ?>
 <section class="mb-8 space-y-4">
-    <?php foreach ($route['body'] as $para): ?>
-    <p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400"><?= e($para) ?></p>
-    <?php endforeach; ?>
-    <?php if ($route['slug'] === 'contact'): ?>
-    <p class="text-sm">
-        <a href="mailto:shehandinushan7@gmail.com" class="font-medium text-brand-600 hover:underline">shehandinushan7@gmail.com</a>
-    </p>
-    <?php endif; ?>
+<?php foreach ($route['body'] as $para): ?>
+<p class="text-sm leading-relaxed text-slate-600 dark:text-slate-400"><?= e($para) ?></p>
+<?php endforeach; ?>
+<?php if ($route['slug'] === 'contact'): ?>
+<p class="text-sm">
+<a href="mailto:shehandinushan7@gmail.com" class="font-medium text-brand-600 hover:underline">shehandinushan7@gmail.com</a>
+</p>
+<?php endif; ?>
 </section>
 <?php endif; ?>
 
@@ -322,9 +332,9 @@ This tool needs JavaScript. The description above is served without it so the pa
 </div>
 
 <script>
-  window.__SITE__ = <?= json_encode(['name' => $siteName, 'url' => $siteUrl], JSON_UNESCAPED_SLASHES) ?>;
-  window.__ROUTES__ = <?= json_encode($clientRoutes, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>;
-  window.__SLUG__ = <?= json_encode($route['slug']) ?>;
+window.__SITE__ = <?= json_encode(['name' => $siteName, 'url' => $siteUrl], JSON_UNESCAPED_SLASHES) ?>;
+window.__ROUTES__ = <?= json_encode($clientRoutes, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>;
+window.__SLUG__ = <?= json_encode($route['slug']) ?>;
 </script>
 
 <!-- Third party generators, loaded once, zero server cost -->
