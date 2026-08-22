@@ -154,7 +154,7 @@ foreach ($routes as $key => $item) {
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#04070a">
+<meta name="theme-color" content="#0b1220">
 
 <title><?= e($title) ?></title>
 <meta name="description" content="<?= e($description) ?>">
@@ -190,6 +190,11 @@ foreach ($routes as $key => $item) {
 <script type="application/ld+json"><?= json_encode($faqSchema, JSON_UNESCAPED_SLASHES) ?></script>
 <?php endif; ?>
 
+<!-- A normal, friendly UI typeface instead of the old monospace terminal look -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <!-- Tailwind. Swap for the compiled file in production, see DEPLOYMENT.md -->
 <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
 <script>
@@ -198,12 +203,12 @@ foreach ($routes as $key => $item) {
     theme: {
       extend: {
         colors: {
-          brand: { 50:'#04120c',100:'#061c13',200:'#0a2f1f',300:'#0e6b3f',400:'#4dffa1',
-                   500:'#22ff88',600:'#12e878',700:'#0bbf61',800:'#0a8f4a',900:'#075f32' }
+          brand: { 50:'#eef4ff',100:'#dbe7ff',200:'#b8d0ff',300:'#8bb0ff',400:'#5c8cf5',
+                    500:'#3b6fe0',600:'#2c56c9',700:'#2545a3',800:'#1f3a86',900:'#1a2f6b' }
         },
         fontFamily: {
-          sans: ['ui-monospace','JetBrains Mono','Fira Code','SFMono-Regular','Menlo','Consolas','monospace'],
-          mono: ['ui-monospace','JetBrains Mono','Fira Code','SFMono-Regular','Menlo','Consolas','monospace']
+          sans: ['Inter','ui-sans-serif','system-ui','-apple-system','Segoe UI','Roboto','Helvetica Neue','Arial','sans-serif'],
+          mono: ['ui-monospace','SFMono-Regular','Menlo','Consolas','monospace']
         }
       }
     }
@@ -215,9 +220,6 @@ foreach ($routes as $key => $item) {
 <body class="h-full bg-slate-50 text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-200">
 
 <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-3 focus:rounded focus:bg-brand-600 focus:px-4 focus:py-2 focus:text-white">Skip to content</a>
-
-<!-- The name, behind every page. Decorative only: aria-hidden, no pointer events. -->
-<div class="wordmark" aria-hidden="true"><span>SHADOW</span><span>CHEETAH</span></div>
 
 <div class="relative z-10 flex min-h-full">
 
@@ -238,45 +240,80 @@ foreach ($routes as $key => $item) {
 
 <?php if ($isHome && !$is404): ?>
 <!-- Hero: quick visual intro with an illustration -->
-<section class="mb-8 overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-brand-50 via-white to-white shadow-sm dark:border-slate-800 dark:from-slate-900 dark:via-slate-950 dark:to-slate-950">
-<div class="grid items-center gap-8 p-6 sm:grid-cols-2 sm:p-10">
+<section class="relative mb-8 overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-brand-50 via-white to-white shadow-sm dark:border-slate-800 dark:from-slate-900 dark:via-slate-950 dark:to-slate-950">
+<div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand-200/40 blur-3xl dark:bg-brand-500/10" aria-hidden="true"></div>
+<div class="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-brand-100/50 blur-3xl dark:bg-brand-700/10" aria-hidden="true"></div>
+<div class="relative grid items-center gap-8 p-6 sm:grid-cols-2 sm:p-10">
 <div>
-<h2 class="text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">All your everyday tools, in one place</h2>
+<span class="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700 dark:border-brand-800 dark:bg-brand-900/40 dark:text-brand-300">
+<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5z"></path></svg>
+15 free tools, no sign-up required
+</span>
+<h2 class="mt-4 text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">All your everyday tools, in one place</h2>
 <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400">Convert files, encode data, generate codes and inspect tokens - fifteen free utilities that load instantly, keep your data private and never ask you to sign up.</p>
 </div>
 <img src="/assets/img/home/hero.svg" alt="Illustration of the Web Utility Suite tool categories" class="mx-auto w-full max-w-sm drop-shadow-lg" loading="eager" width="480" height="360">
 </div>
 </section>
+
+<!-- Quick stats strip -->
+<section class="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+<div class="rounded-xl border border-slate-200 bg-white p-4 text-center dark:border-slate-800 dark:bg-slate-900">
+<p class="text-2xl font-bold text-brand-600 dark:text-brand-400">15</p>
+<p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Free tools</p>
+</div>
+<div class="rounded-xl border border-slate-200 bg-white p-4 text-center dark:border-slate-800 dark:bg-slate-900">
+<p class="text-2xl font-bold text-brand-600 dark:text-brand-400">0</p>
+<p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Sign-ups needed</p>
+</div>
+<div class="rounded-xl border border-slate-200 bg-white p-4 text-center dark:border-slate-800 dark:bg-slate-900">
+<p class="text-2xl font-bold text-brand-600 dark:text-brand-400">9</p>
+<p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Run in your browser</p>
+</div>
+<div class="rounded-xl border border-slate-200 bg-white p-4 text-center dark:border-slate-800 dark:bg-slate-900">
+<p class="text-2xl font-bold text-brand-600 dark:text-brand-400">100%</p>
+<p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Free, always</p>
+</div>
+</section>
+
 <!-- Quick trust signals, each with a small original inline icon -->
 <section class="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-<div class="card">
-<svg class="h-6 w-6 text-brand-600 dark:text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+<div class="card transition hover:-translate-y-0.5 hover:shadow-md">
+<span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600 dark:bg-brand-900/50 dark:text-brand-400">
+<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
 <circle cx="12" cy="12" r="9"></circle>
 <path d="M8.5 12.5l2.5 2.5 5-5"></path>
 </svg>
+</span>
 <h2 class="mt-3 text-base font-semibold text-slate-900 dark:text-white">No sign-up, ever</h2>
 <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Every tool works the moment the page loads. There is no account to create and nothing to remember a password for.</p>
 </div>
-<div class="card">
-<svg class="h-6 w-6 text-brand-600 dark:text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+<div class="card transition hover:-translate-y-0.5 hover:shadow-md">
+<span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600 dark:bg-brand-900/50 dark:text-brand-400">
+<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
 <rect x="5" y="11" width="14" height="9" rx="2"></rect>
 <path d="M8 11V7a4 4 0 018 0v4"></path>
 </svg>
+</span>
 <h2 class="mt-3 text-base font-semibold text-slate-900 dark:text-white">Privacy by design</h2>
 <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Nine of the fifteen tools run entirely in your browser. The rest proxy through this domain so a provider key never reaches client-side code.</p>
 </div>
-<div class="card">
-<svg class="h-6 w-6 text-brand-600 dark:text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+<div class="card transition hover:-translate-y-0.5 hover:shadow-md">
+<span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600 dark:bg-brand-900/50 dark:text-brand-400">
+<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
 <path d="M12 4l1.8 4.6L18 10l-4.2 1.4L12 16l-1.8-4.6L6 10l4.2-1.4z"></path>
 </svg>
+</span>
 <h2 class="mt-3 text-base font-semibold text-slate-900 dark:text-white">Free, funded by light ads</h2>
 <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">No subscriptions or paywalls. Clearly labelled advertising covers hosting so every tool stays free to use.</p>
 </div>
-<div class="card">
-<svg class="h-6 w-6 text-brand-600 dark:text-brand-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+<div class="card transition hover:-translate-y-0.5 hover:shadow-md">
+<span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-600 dark:bg-brand-900/50 dark:text-brand-400">
+<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
 <rect x="3" y="4" width="18" height="12" rx="1.5"></rect>
 <path d="M8 20h8M12 16v4"></path>
 </svg>
+</span>
 <h2 class="mt-3 text-base font-semibold text-slate-900 dark:text-white">Works on any device</h2>
 <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Every tool is a normal web page with a real URL, so it works the same on a phone, a locked-down work laptop or a tablet.</p>
 </div>
@@ -311,7 +348,7 @@ This tool needs JavaScript. The description above is served without it so the pa
 <section class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 <?php foreach ($toolGroups as $category => $items): ?>
 <?php foreach ($items as $item): ?>
-<a href="/<?= e($item['slug']) ?>" data-spa class="card block transition hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-lg">
+<a href="/<?= e($item['slug']) ?>" data-spa class="card block transition hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-lg dark:hover:border-brand-700">
 <p class="text-xs font-semibold uppercase tracking-wide text-brand-600 dark:text-brand-400"><?= e($category) ?></p>
 <h2 class="mt-1 text-lg font-semibold text-slate-900 dark:text-white"><?= e($item['nav']) ?></h2>
 <p class="mt-2 line-clamp-3 text-sm text-slate-600 dark:text-slate-400"><?= e($item['description']) ?></p>
@@ -341,9 +378,9 @@ This tool needs JavaScript. The description above is served without it so the pa
 </div>
 
 <script>
-window.__SITE__ = <?= json_encode(['name' => $siteName, 'url' => $siteUrl], JSON_UNESCAPED_SLASHES) ?>;
-window.__ROUTES__ = <?= json_encode($clientRoutes, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>;
-window.__SLUG__ = <?= json_encode($route['slug']) ?>;
+  window.__SITE__ = <?= json_encode(['name' => $siteName, 'url' => $siteUrl], JSON_UNESCAPED_SLASHES) ?>;
+  window.__ROUTES__ = <?= json_encode($clientRoutes, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>;
+  window.__SLUG__ = <?= json_encode($route['slug']) ?>;
 </script>
 
 <!-- Third party generators, loaded once, zero server cost -->
