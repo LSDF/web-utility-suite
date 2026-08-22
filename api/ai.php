@@ -44,8 +44,7 @@ $model = (string) env('AI_MODEL', 'gpt-4o-mini');
 
 $res = http_json('POST', $base . '/chat/completions', [
     'model'       => $model,
-    'temperature' => 0.2,
-    'max_tokens'  => 1200,
+    'temperature' => 0.4,
     'messages'    => [
         ['role' => 'system', 'content' => $prompt],
         ['role' => 'user',   'content' => $input],
@@ -90,7 +89,7 @@ function build_prompt(string $task, string $optionA, string $optionB): ?string
             'detailed' => 'Be thorough, but never pad.',
         ];
 
-        return 'You are a precise summarization engine. '
+        return 'You are a sharp, thoughtful reader summarizing this for a busy colleague. '
             . ($styles[$optionA] ?? $styles['bullets']) . ' '
             . ($lengths[$optionB] ?? $lengths['medium']) . ' '
             . 'Preserve numbers, names and dates exactly. Never invent facts that are not in the source. '
@@ -105,8 +104,7 @@ function build_prompt(string $task, string $optionA, string $optionB): ?string
         ];
         $language = ($optionA === '' || $optionA === 'auto') ? 'Detect the language yourself.' : 'The language is ' . $optionA . '.';
 
-        return 'You are a senior software engineer explaining a snippet during code review. ' . $language . ' '
-            . ($depths[$optionB] ?? $depths['standard']) . ' '
+        return 'You are a friendly senior engineer mentoring a teammate during code review. ' . $language . ' '            . ($depths[$optionB] ?? $depths['standard']) . ' '
             . 'Structure the answer as markdown: a one line summary, a short step by step walkthrough, '
             . 'then Complexity, Edge cases and Suggestions sections. '
             . 'Never execute, never fabricate APIs, and if the snippet looks malicious say so and stop.';
