@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cheetah OSINT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #020403;
+      --surface: #0a0f0c;
+      --border: #1a2e22;
+      --text: #c8facc;
+      --muted: #5a8f6a;
+      --accent: #00ff9d;
+      --danger: #ff4d4d;
+      --success: #00ff9d;
+      --warning: #ffcc00;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Share Tech Mono', monospace;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(ellipse at top, #0a1f14 0%, transparent 60%),
+        linear-gradient(rgba(0,255,157,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,157,0.03) 1px, transparent 1px);
+      background-size: 100% 100%, 40px 40px, 40px 40px;
+    }
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-shadow: 0 0 12px rgba(0,255,157,0.5);
+    }
+    .logo span { color: #fff; }
+    .badge {
+      font-size: 0.7rem;
+      color: var(--warning);
+      border: 1px solid var(--warning);
+      padding: 4px 12px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+    }
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .disclaimer {
+      background: rgba(255, 204, 0, 0.08);
+      border: 1px solid rgba(255, 204, 0, 0.3);
+      color: var(--warning);
+      padding: 14px 18px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      margin-bottom: 32px;
+    }
+    h1 {
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin-bottom: 6px;
+      text-shadow: 0 0 20px rgba(0,255,157,0.3);
+    }
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 32px;
+      font-size: 0.9rem;
+    }
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .tab {
+      padding: 8px 16px;
+      border-radius: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      transition: all 0.2s;
+    }
+    .tab:hover { border-color: var(--accent); color: var(--accent); }
+    .tab.active {
+      background: rgba(0,255,157,0.1);
+      color: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 0 12px rgba(0,255,157,0.15);
+    }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .search-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    input {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 16px;
+      color: var(--accent);
+      font-family: inherit;
+      font-size: 1rem;
+      outline: none;
+    }
+    input:focus { 
+      border-color: var(--accent); 
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+    input::placeholder { color: var(--muted); }
+    button {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      padding: 0 22px;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: all 0.2s;
+    }
+    button:hover {
+      background: var(--accent);
+      color: #000;
+      box-shadow: 0 0 20px rgba(0,255,157,0.4);
+    }
+    .results {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
+      font-size: 0.85rem;
+      min-height: 140px;
+    }
+    .result-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .result-card:last-child { border-bottom: none; }
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 6px;
+      background: #111;
+      border: 1px solid var(--border);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .avatar-placeholder {
+      width: 48px;
+      height: 48px;
+      border-radius: 6px;
+      background: #0d1a12;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .info { flex: 1; min-width: 0; }
+    .platform { 
+      color: var(--accent); 
+      font-weight: 600; 
+      margin-bottom: 2px;
+    }
+    .status-found { color: var(--success); }
+    .status-not { color: var(--muted); }
+    .status-error { color: var(--danger); }
+    a.link {
+      color: var(--accent);
+      text-decoration: none;
+      word-break: break-all;
+    }
+    a.link:hover { text-decoration: underline; }
+    .raw {
+      white-space: pre-wrap;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+      font-size: 0.75rem;
+      border-top: 1px solid var(--border);
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">CHEETAH <span>OSINT</span></div>
+    <div class="badge">PUBLIC DATA ONLY</div>
+  </header>
+
+  <main>
+    <div class="disclaimer">
+      ⚠️ LEGAL NOTICE: This tool only uses publicly available information. 
+      You are fully responsible for legal use. Do not use for stalking, harassment, or illegal activity.
+    </div>
+
+    <h1>// OPEN SOURCE INTELLIGENCE</h1>
+    <p class="subtitle">Public information gathering system</p>
+
+    <div class="tabs">
+      <div class="tab active" data-tab="username">USERNAME</div>
+      <div class="tab" data-tab="whois">WHOIS</div>
+      <div class="tab" data-tab="dns">DNS</div>
+      <div class="tab" data-tab="ip">IP INFO</div>
+    </div>
+
+    <div class="panel active" id="panel-username">
+      <div class="search-box">
+        <input type="text" id="usernameInput" placeholder="target_username" />
+        <button onclick="runUsername()">SCAN</button>
+      </div>
+      <div class="results" id="usernameResults">Awaiting target username...</div>
+    </div>
+
+    <div class="panel" id="panel-whois">
+      <div class="search-box">
+        <input type="text" id="whoisInput" placeholder="example.com" />
+        <button onclick="runWhois()">LOOKUP</button>
+      </div>
+      <div class="results" id="whoisResults">Enter domain for public WHOIS data.</div>
+    </div>
+
+    <div class="panel" id="panel-dns">
+      <div class="search-box">
+        <input type="text" id="dnsInput" placeholder="example.com" />
+        <button onclick="runDns()">LOOKUP</button>
+      </div>
+      <div class="results" id="dnsResults">Enter domain for DNS records.</div>
+    </div>
+
+    <div class="panel" id="panel-ip">
+      <div class="search-box">
+        <input type="text" id="ipInput" placeholder="8.8.8.8" />
+        <button onclick="runIp()">LOOKUP</button>
+      </div>
+      <div class="results" id="ipResults">Enter IP address for public information.</div>
+    </div>
+  </main>
+
+  <footer>
+    CHEETAH OSINT · PUBLIC INFORMATION ONLY · USE RESPONSIBLY
+  </footer>
+
+  <script>
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    async function runUsername() {
+      const q = document.getElementById('usernameInput').value.trim();
+      if (!q) return;
+      const el = document.getElementById('usernameResults');
+      el.innerHTML = '<span style="color:var(--accent)">Scanning public platforms...</span>';
+
+      try {
+        const res = await fetch('/username?q=' + encodeURIComponent(q));
+        const data = await res.json();
+
+        if (!res.ok) {
+          el.innerHTML = `<span style="color:var(--danger)">Error: ${escapeHtml(data.detail || data.error || 'Request failed')}</span>`;
+          return;
+        }
+
+        if (!data.results || !Array.isArray(data.results)) {
+          el.innerHTML = `<pre class="raw">${escapeHtml(JSON.stringify(data, null, 2))}</pre>`;
+          return;
+        }
+
+        let html = `<div style="margin-bottom:16px;color:var(--accent)">TARGET: ${escapeHtml(data.username)}</div>`;
+
+        data.results.forEach(r => {
+          const statusClass = r.status.includes('Found') ? 'status-found' : 
+                              r.status.includes('Error') ? 'status-error' : 'status-not';
+          
+          // Try GitHub avatar if it's GitHub
+          let avatarHtml = `<div class="avatar-placeholder">?</div>`;
+          if (r.platform === 'GitHub' && r.status.includes('Found')) {
+            avatarHtml = `<img class="avatar" src="https://github.com/${encodeURIComponent(q)}.png?size=96" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'" />
+                          <div class="avatar-placeholder" style="display:none">?</div>`;
+          }
+
+          html += `
+            <div class="result-card">
+              ${avatarHtml}
+              <div class="info">
+                <div class="platform">${escapeHtml(r.platform)}</div>
+                <div class="${statusClass}">${escapeHtml(r.status)}</div>
+                <a class="link" href="${escapeHtml(r.url)}" target="_blank" rel="noopener">${escapeHtml(r.url)}</a>
+              </div>
+            </div>
+          `;
+        });
+
+        el.innerHTML = html;
+      } catch (e) {
+        el.innerHTML = `<span style="color:var(--danger)">Error: ${escapeHtml(e.message)}</span>`;
+      }
+    }
+
+    async function runWhois() {
+      const q = document.getElementById('whoisInput').value.trim();
+      if (!q) return;
+      const el = document.getElementById('whoisResults');
+      el.innerHTML = '<span style="color:var(--accent)">Fetching public WHOIS...</span>';
+      try {
+        const res = await fetch('/whois?domain=' + encodeURIComponent(q));
+        const data = await res.json();
+        el.innerHTML = `<pre class="raw">${escapeHtml(JSON.stringify(data, null, 2))}</pre>`;
+      } catch (e) {
+        el.innerHTML = `<span style="color:var(--danger)">Error: ${escapeHtml(e.message)}</span>`;
+      }
+    }
+
+    async function runDns() {
+      const q = document.getElementById('dnsInput').value.trim();
+      if (!q) return;
+      const el = document.getElementById('dnsResults');
+      el.innerHTML = '<span style="color:var(--accent)">Fetching DNS records...</span>';
+      try {
+        const res = await fetch('/dns?domain=' + encodeURIComponent(q));
+        const data = await res.json();
+        el.innerHTML = `<pre class="raw">${escapeHtml(JSON.stringify(data, null, 2))}</pre>`;
+      } catch (e) {
+        el.innerHTML = `<span style="color:var(--danger)">Error: ${escapeHtml(e.message)}</span>`;
+      }
+    }
+
+    async function runIp() {
+      const q = document.getElementById('ipInput').value.trim();
+      if (!q) return;
+      const el = document.getElementById('ipResults');
+      el.innerHTML = '<span style="color:var(--accent)">Fetching IP information...</span>';
+      try {
+        const res = await fetch('/ip?ip=' + encodeURIComponent(q));
+        const data = await res.json();
+        el.innerHTML = `<pre class="raw">${escapeHtml(JSON.stringify(data, null, 2))}</pre>`;
+      } catch (e) {
+        el.innerHTML = `<span style="color:var(--danger)">Error: ${escapeHtml(e.message)}</span>`;
+      }
+    }
+
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          if (input.id === 'usernameInput') runUsername();
+          if (input.id === 'whoisInput') runWhois();
+          if (input.id === 'dnsInput') runDns();
+          if (input.id === 'ipInput') runIp();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
