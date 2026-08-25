@@ -286,6 +286,24 @@ return [
                 ['Do you keep my code?', 'No. The PHP proxy forwards the request and returns the answer without persisting either.'],
             ],
         ],
+
+         /* ----------------------------------------------------------------- */
+         /* Guides                                                             */
+         /* ----------------------------------------------------------------- */
+         'education-guides' => [
+             'slug' => 'education-guides',
+             'category' => 'Guides',
+             'nav' => 'Education Guides',
+             'title' => 'Education Guides: Software Skills & Cybersecurity Literacy',
+             'h1' => 'Education guides: everyday software skills and cybersecurity literacy',
+             'description' => 'Step-by-step guides for everyday software like Excel, Word and PowerPoint, plus a legal, defensive-focused introduction to cybersecurity concepts, social engineering awareness and OSINT using publicly available information.',
+             'keywords' => 'excel formulas, word references, powerpoint animations, osint, social engineering awareness, kali linux overview',
+             'intro' => 'Practical walkthroughs for common software tasks, alongside a plain-language introduction to cybersecurity awareness, social engineering red flags and OSINT research using only publicly available information.',
+             'faq' => [
+                 ['Does this cover how to hack into systems?', 'No. The cybersecurity section is written for defensive awareness and legal, authorized use only, and does not include exploit code or unauthorized access techniques.'],
+                 ['Do I need special software to follow the Excel, Word or PowerPoint steps?', 'No, just Microsoft Office or a compatible suite such as Google Workspace, which uses very similar steps.'],
+             ],
+         ],
     
         /* ----------------------------------------------------------------- */
         /* 7. Company / static pages                                         */
