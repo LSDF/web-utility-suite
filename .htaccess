@@ -9,39 +9,30 @@ DirectoryIndex index.php
     RewriteEngine On
     RewriteBase /
 
-    # Force HTTPS (Hostinger terminates SSL, so check the forwarded header too)
     RewriteCond %{HTTPS} !=on
     RewriteCond %{HTTP:X-Forwarded-Proto} !https
     RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
-    # Strip a trailing slash (except for the site root) so /qr-generator/ === /qr-generator
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.+)/$ /$1 [R=301,L]
 
-    # Real files and folders are served directly (css, js, images, api/*.php, sitemap.xml ...)
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
 
-    # The dynamic sitemap
     RewriteRule ^sitemap\.xml$ sitemap.php [L]
 
-    # Everything else is handed to the SPA shell, which renders per-route SEO tags
+    RewriteRule ^(blog|private-online-tools-guide|education-guides)/?$ article.php [L]
+
     RewriteRule ^ index.php [L]
 </IfModule>
 
-# ---------------------------------------------------------------------
-# Never expose secrets or VCS metadata
-# ---------------------------------------------------------------------
 <FilesMatch "^(\.env|secrets\.php|composer\.(json|lock)|\.gitignore|\.htaccess)$">
     Require all denied
 </FilesMatch>
 
 RedirectMatch 404 /\.git
 
-# ---------------------------------------------------------------------
-# Security headers
-# ---------------------------------------------------------------------
 <IfModule mod_headers.c>
     Header always set X-Content-Type-Options "nosniff"
     Header always set X-Frame-Options "SAMEORIGIN"
@@ -50,9 +41,6 @@ RedirectMatch 404 /\.git
     Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 </IfModule>
 
-# ---------------------------------------------------------------------
-# Compression + caching (Core Web Vitals)
-# ---------------------------------------------------------------------
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
     AddOutputFilterByType DEFLATE application/javascript application/json
@@ -68,7 +56,6 @@ RedirectMatch 404 /\.git
     ExpiresByType text/html "access plus 0 seconds"
 </IfModule>
 
-# Upload limits for the document converters
 <IfModule mod_php.c>
     php_value upload_max_filesize 20M
     php_value post_max_size 22M
