@@ -1,0 +1,103 @@
+<?php
+/** Extra indexable pages merged on top of config/routes.php */
+return [
+         'education-guides' => [
+             'slug' => 'education-guides',
+             'category' => 'Guides',
+             'type' => 'page',
+             'nav' => 'Education Guides',
+             'title' => 'Education Guides: Software Skills & Cybersecurity Literacy',
+             'h1' => 'Education guides: everyday software skills and cybersecurity literacy',
+             'description' => 'Step-by-step guides for everyday software like Excel, Word and PowerPoint, plus a legal, defensive-focused introduction to cybersecurity concepts, social engineering awareness and OSINT using publicly available information.',
+             'keywords' => 'excel formulas, word references, powerpoint animations, osint, social engineering awareness, kali linux overview',
+             'intro' => 'Practical walkthroughs for common software tasks, alongside a plain-language introduction to cybersecurity awareness, social engineering red flags and OSINT research using only publicly available information.',
+             'body' => [
+                 ['h2' => 'Everyday software skills'],
+                 'Start Excel formulas with =. Use SUM, IF, XLOOKUP, INDEX/MATCH, COUNTIF and SUMIF. Lock cells with $A$1. Build PivotTables from Insert, then drag fields. Conditional formatting and Data Validation live on the Home and Data tabs.',
+                 'In Word, apply Heading 1 styles instead of fake bold titles. References > Table of Contents and Insert Citation stay in sync when styles are correct. Mailings handles mail merge from an Excel list.',
+                 'In PowerPoint, set the Slide Master first. Use the Animation Pane for order and timing. Morph works when two slides share similar objects.',
+                 ['h2' => 'Defensive security literacy'],
+                 'Kali Linux is a distribution for authorized assessments. Phishing, vishing, pretexting, baiting and tailgating are social-engineering patterns. Defense is a second channel, skepticism of urgency, MFA and least privilege.',
+                 'OSINT means using information that is already public: search operators, WHOIS, DNS, Wayback Machine, public registries. Never bypass logins or privacy settings. Unauthorized access is illegal.',
+                 ['link' => ['href' => '/private-online-tools-guide', 'text' => 'Next: how to use free online tools without giving away your data']],
+                 ['link' => ['href' => '/blog', 'text' => 'Open the Shehanly blog']],
+             ],
+             'faq' => [
+                 ['Does this cover how to hack into systems?', 'No. The cybersecurity section is written for defensive awareness and legal, authorized use only, and does not include exploit code or unauthorized access techniques.'],
+                 ['Do I need special software to follow the Excel, Word or PowerPoint steps?', 'No, just Microsoft Office or a compatible suite such as Google Workspace, which uses very similar steps.'],
+             ],
+         ],
+         'blog' => [
+             'slug' => 'blog',
+             'category' => 'Guides',
+             'type' => 'page',
+             'nav' => 'Blog',
+             'title' => 'Shehanly Blog - Privacy-First Tools, Security & Everyday Workflows',
+             'h1' => 'The Shehanly blog',
+             'description' => 'Practical guides on using free online tools without leaking data, converting documents safely, generating strong passwords and working faster with developer utilities.',
+             'keywords' => 'shehanly blog, private online tools, free developer tools guides, password security, pdf converter safety',
+             'intro' => 'Short, practical articles from the builder of Shehanly. No fluff. Each post solves one problem and points you at the free tool that does the work.',
+             'body' => [
+                 ['h2' => 'Latest posts'],
+                 'New writing ships here first. Every article is written to rank, to teach, and to send you back into a tool you can actually use.',
+                 ['link' => ['href' => '/private-online-tools-guide', 'text' => 'How to use free online tools without giving away your data (26 Aug 2026)']],
+                 'Want a topic covered next? Use the Contact page and say exactly what you were trying to do when a random tool site made you hesitate.'
+             ],
+             'faq' => [
+                 ['How often is the blog updated?', 'New posts go up when there is a real problem worth solving, not on a fake daily calendar.'],
+                 ['Are these posts sales pages?', 'No. The tools stay free. The writing exists to teach and to earn search traffic the honest way.'],
+             ],
+         ],
+         'private-online-tools-guide' => [
+             'slug' => 'private-online-tools-guide',
+             'category' => 'Guides',
+             'type' => 'page',
+             'nav' => 'Private Tools Guide',
+             'published' => '2026-08-26',
+             'title' => 'How to Use Free Online Tools Without Giving Away Your Data (2026)',
+             'h1' => 'How to use free online tools without giving away your data',
+             'description' => 'A practical 2026 guide to using free converters, generators and developer tools without uploading private files to random websites. Learn what should stay in your browser and what is safe to proxy.',
+             'keywords' => 'private online tools, safe pdf converter, client side tools, do not upload files, browser based hash generator, shehanly',
+             'intro' => 'Most free tool sites look helpful until you paste a contract, a password list or a customer export into a box that phones home. This guide shows you how to keep the useful part and drop the leak.',
+             'body' => [
+                 'Last updated: 26 August 2026. Written for students, freelancers and small teams who actually use these tools at work.',
+                 ['h2' => 'The rule that saves you'],
+                 'If a job can be done inside the browser tab, it should stay there. Encoding, hashing, JSON formatting, QR codes, barcodes, password generation, JWT inspection and URL escaping do not need a server. The moment a site uploads that input, you have given a stranger a copy of the thing you were trying to fix.',
+                 'Shehanly is built on that split: nine tools never make a network request with your payload. Six tools that cannot run locally, such as document conversion, temporary email, DNS lookup and the AI helpers, go through a PHP proxy on this domain so a vendor API key never sits in client-side JavaScript.',
+                 ['h2' => 'What should never leave your machine'],
+                 ['ul' => [
+                     'Passwords, recovery codes and API keys. Generate them locally, copy them once, store them in a password manager.',
+                     'Source code and JWT access tokens. Decode them in the tab. Never paste a signing secret into a website.',
+                     'Customer exports, invoices and anything covered by an NDA. Format JSON or count words offline.',
+                     'Hashes you are computing for integrity checks. Hashing is a local job.'
+                 ]],
+                 ['link' => ['href' => '/password-generator', 'text' => 'Open the local password generator']],
+                 ['link' => ['href' => '/hash-generator', 'text' => 'Open the browser hash generator']],
+                 ['link' => ['href' => '/jwt-decoder', 'text' => 'Open the JWT decoder']],
+                 ['link' => ['href' => '/json-formatter', 'text' => 'Open the JSON formatter']],
+                 ['h2' => 'When a server is actually required'],
+                 'Some jobs cannot run in a locked-down browser. Turning a PDF into an editable Word file needs a conversion engine. Looking up public DNS records from outside your ISP cache needs a resolver. A disposable inbox needs a mail server. An AI summary needs a model.',
+                 'The safe pattern is a same-origin proxy: your browser talks only to shehanly.com, the server attaches the secret, the file is deleted after the job, and the vendor never sees your raw browser origin mixed with an exposed key.',
+                 ['link' => ['href' => '/pdf-to-word', 'text' => 'Convert a PDF to Word through the Shehanly proxy']],
+                 ['link' => ['href' => '/temp-mail', 'text' => 'Open a 10-minute disposable inbox']],
+                 ['h2' => 'A 60-second checklist before you paste anything'],
+                 ['ul' => [
+                     'Read the URL. If it is not the site you think it is, stop.',
+                     'Check whether the tool works with the network tab closed or airplane mode on. If it still works, it is client-side.',
+                     'Never paste production secrets into an AI box. Redact first.',
+                     'For conversions, strip metadata you do not want travelling with the file.',
+                     'Prefer tools that state a delete-after-processing policy in plain language.'
+                 ]],
+                 ['h2' => 'Why this matters for SEO and for trust'],
+                 'People search for free converters and generators every day. They bounce when the page screams for an account or hides the download behind five pop-ups. A tool that stays fast, labelled and honest wins the click and the return visit. That is the entire Shehanly bet.',
+                 'If you want the longer software and awareness notes, the Education Guides page covers Excel, Word, PowerPoint and defensive OSINT literacy with no exploit content.',
+                 ['link' => ['href' => '/education-guides', 'text' => 'Read the Education Guides']],
+                 ['link' => ['href' => '/blog', 'text' => 'Back to the blog index']]
+             ],
+             'faq' => [
+                 ['Is client-side processing really private?', 'Your input never leaves the tab for those tools. A malicious browser extension can still read the page, so keep your extensions tight.'],
+                 ['Does Shehanly store converted files?', 'Uploads go to a temporary directory, get processed, then get deleted. Do not treat that as a vault. Download the result and move on.'],
+                 ['Can I use these tools on a work laptop?', 'Yes. They are normal web pages. Client-side tools also work when the corporate proxy is flaky because they do not need a vendor round trip.'],
+             ],
+         ],
+];

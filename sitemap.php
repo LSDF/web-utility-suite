@@ -8,6 +8,10 @@ declare(strict_types=1);
 require __DIR__ . '/config/bootstrap.php';
 
 $routes = require __DIR__ . '/config/routes.php';
+$extraPages = __DIR__ . '/config/pages.php';
+if (is_file($extraPages)) {
+    $routes = array_replace($routes, require $extraPages);
+}
 $siteUrl = rtrim((string) env('SITE_URL', 'https://' . ($_SERVER['HTTP_HOST'] ?? 'localhost')), '/');
 $today = gmdate('Y-m-d');
 
