@@ -20,6 +20,7 @@ return [
                  'Kali Linux is a distribution for authorized assessments. Phishing, vishing, pretexting, baiting and tailgating are social-engineering patterns. Defense is a second channel, skepticism of urgency, MFA and least privilege.',
                  'OSINT means using information that is already public: search operators, WHOIS, DNS, Wayback Machine, public registries. Never bypass logins or privacy settings. Unauthorized access is illegal.',
                  ['link' => ['href' => '/private-online-tools-guide', 'text' => 'Next: how to use free online tools without giving away your data']],
+                 ['link' => ['href' => '/strong-password-guide', 'text' => 'Next: generate a strong password in your browser']],
                  ['link' => ['href' => '/blog', 'text' => 'Open the Shehanly blog']],
              ],
              'faq' => [
@@ -40,7 +41,9 @@ return [
              'body' => [
                  ['h2' => 'Latest posts'],
                  'New writing ships here first. Every article is written to rank, to teach, and to send you back into a tool you can actually use.',
+                 ['link' => ['href' => '/strong-password-guide', 'text' => 'How to generate a strong password in your browser (27 Aug 2026)']],
                  ['link' => ['href' => '/private-online-tools-guide', 'text' => 'How to use free online tools without giving away your data (26 Aug 2026)']],
+                 ['link' => ['href' => '/education-guides', 'text' => 'Education guides: Excel, Word, PowerPoint and defensive security literacy']],
                  'Want a topic covered next? Use the Contact page and say exactly what you were trying to do when a random tool site made you hesitate.'
              ],
              'faq' => [
@@ -92,12 +95,74 @@ return [
                  'People search for free converters and generators every day. They bounce when the page screams for an account or hides the download behind five pop-ups. A tool that stays fast, labelled and honest wins the click and the return visit. That is the entire Shehanly bet.',
                  'If you want the longer software and awareness notes, the Education Guides page covers Excel, Word, PowerPoint and defensive OSINT literacy with no exploit content.',
                  ['link' => ['href' => '/education-guides', 'text' => 'Read the Education Guides']],
+                 ['link' => ['href' => '/strong-password-guide', 'text' => 'Next: generate a strong password without leaving the tab']],
                  ['link' => ['href' => '/blog', 'text' => 'Back to the blog index']]
              ],
              'faq' => [
                  ['Is client-side processing really private?', 'Your input never leaves the tab for those tools. A malicious browser extension can still read the page, so keep your extensions tight.'],
                  ['Does Shehanly store converted files?', 'Uploads go to a temporary directory, get processed, then get deleted. Do not treat that as a vault. Download the result and move on.'],
                  ['Can I use these tools on a work laptop?', 'Yes. They are normal web pages. Client-side tools also work when the corporate proxy is flaky because they do not need a vendor round trip.'],
+             ],
+         ],
+         'strong-password-guide' => [
+             'slug' => 'strong-password-guide',
+             'category' => 'Guides',
+             'type' => 'page',
+             'nav' => 'Strong Password Guide',
+             'published' => '2026-08-27',
+             'title' => 'How to Generate a Strong Password in Your Browser (2026 Guide)',
+             'h1' => 'How to generate a strong password in your browser',
+             'description' => 'A 2026 guide to creating strong random passwords and passphrases in your browser with crypto.getRandomValues. Learn entropy targets, what to avoid, and how to keep generated secrets off the network.',
+             'keywords' => 'strong password generator, random password 2026, passphrase generator, password entropy, browser password generator, shehanly',
+             'intro' => 'A password is only as strong as the randomness that built it and the place it was generated. This guide shows how to create one in the tab, score it in bits, and store it without leaking it to a random website.',
+             'body' => [
+                 'Last updated: 27 August 2026. Written for anyone who still types passwords by hand, reuses one favourite, or pastes secrets into an online generator they do not control.',
+                 ['h2' => 'The only two jobs a password has'],
+                 'It has to be unpredictable. It has to stay secret. Everything else is theatre. A 16-character string of keyboard walks looks long and still falls in minutes. A 4-word passphrase from a tiny word list looks friendly and still collides. Strength is measured in entropy, not vibes.',
+                 'Shehanly generates passwords with crypto.getRandomValues, the browser CSPRNG. There is no Math.random, no server log, and no network request. You copy once and leave.',
+                 ['link' => ['href' => '/password-generator', 'text' => 'Open the browser password generator']],
+                 ['h2' => 'How much entropy is enough in 2026'],
+                 ['ul' => [
+                     'Everyday accounts with multi-factor authentication: aim for 75 bits or more.',
+                     'Email, banking, exchanges and the password manager master secret: aim for 100 bits or more.',
+                     'A 16-character password from mixed upper, lower, digits and symbols is roughly 95 to 105 bits if the generator is honest.',
+                     'A 6-word diceware-style passphrase from a 7776-word list is about 77 bits. Add a seventh word if that is your vault key.'
+                 ]],
+                 'If a site still caps you at 12 characters, turn on a unique password plus MFA and accept that the site is the weak point, not your generator.',
+                 ['h2' => 'Character passwords versus passphrases'],
+                 'Use a character password when the site will store it behind a proper hash and you will keep it in a manager. Use a passphrase when a human has to type it on a phone, a TV, or a locked-down kiosk. Do not mix the two badly: "Summer2026!" is neither random nor memorable. It is a pattern attackers already try.',
+                 'Good passphrase style is six or seven unrelated words with a separator you choose once. Bad passphrase style is a quote, a lyric, or three words about your dog.',
+                 ['h2' => 'What a generator must never do'],
+                 ['ul' => [
+                     'It must not send the result to a server "for scoring". Entropy can be counted locally.',
+                     'It must not use Math.random. That is not a cryptographic source.',
+                     'It must not keep a history of generated values in localStorage unless you asked for it.',
+                     'It must not offer to email you the password. That is how inboxes become vaults for attackers.'
+                 ]],
+                 'A fast test: open the generator, disconnect the network or watch the Network tab, and generate again. If a request fires with your secret in the payload, close the tab.',
+                 ['h2' => 'A 90-second workflow that actually sticks'],
+                 ['ul' => [
+                     'Open a client-side generator. Set length to 20 or pick a 6-word passphrase.',
+                     'Copy once. Paste into the password manager or the signup field. Do not paste it into chat, notes apps that sync, or an email draft.',
+                     'Turn on MFA on the account before you close the tab.',
+                     'If the site emails you the password you just set, change it. That site stores secrets in the clear or close to it.',
+                     'Never reuse the same string on a second site. Reuse is how one leak becomes five logins.'
+                 ]],
+                 ['link' => ['href' => '/password-generator', 'text' => 'Generate the password locally now']],
+                 ['h2' => 'Where people still get burned'],
+                 'Browser extensions can read a page even when the page itself never uploads data. Keep the extension list short. Public computers and "free VPN" apps are not a place to generate a master password. Screenshots of a password are just a password in a photo library. Recovery codes from banks and exchanges deserve the same treatment as the password itself.',
+                 'If you need a throwaway inbox for a signup you do not trust, use a disposable address instead of burning your real one, then store the real unique password in the manager.',
+                 ['link' => ['href' => '/temp-mail', 'text' => 'Open a 10-minute disposable inbox']],
+                 ['h2' => 'Why this belongs next to the tool'],
+                 'People search for a free password generator, click the first result, and hope. The honest version is a page that tells you the entropy target, refuses to phone home, and then hands you the generator. That is the Shehanly pattern for every utility on the site.',
+                 ['link' => ['href' => '/private-online-tools-guide', 'text' => 'How to use free online tools without giving away your data']],
+                 ['link' => ['href' => '/education-guides', 'text' => 'Read the Education Guides']],
+                 ['link' => ['href' => '/blog', 'text' => 'Back to the blog index']]
+             ],
+             'faq' => [
+                 ['Is a long passphrase better than a short random password?', 'Not automatically. Compare entropy, not character count. A 6-word diceware passphrase and a 16-character mixed password can be in the same strength band if both are generated randomly.'],
+                 ['Should I change every password every 90 days?', 'No. Change it when there is a breach, a reuse problem, or a suspected leak. Forced rotation usually produces weaker patterns.'],
+                 ['Does Shehanly store generated passwords?', 'No. The generator runs in the browser and does not send the value to the server.'],
              ],
          ],
 ];

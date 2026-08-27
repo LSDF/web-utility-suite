@@ -22,7 +22,7 @@ DirectoryIndex index.php
 
     RewriteRule ^sitemap\.xml$ sitemap.php [L]
 
-    RewriteRule ^(blog|private-online-tools-guide|education-guides)/?$ article.php [L]
+    RewriteRule ^(blog|private-online-tools-guide|education-guides|strong-password-guide)/?$ article.php [L]
 
     RewriteRule ^ index.php [L]
 </IfModule>
