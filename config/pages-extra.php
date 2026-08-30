@@ -1,0 +1,96 @@
+<?php
+/** Extra blog posts merged after config/pages.php */
+return [
+         'blog' => [
+             'slug' => 'blog',
+             'category' => 'Guides',
+             'type' => 'page',
+             'nav' => 'Blog',
+             'title' => 'Shehanly Blog - Privacy-First Tools, Security & Everyday Workflows',
+             'h1' => 'The Shehanly blog',
+             'description' => 'Practical guides on using free online tools without leaking data, converting documents safely, generating strong passwords and working faster with developer utilities.',
+             'keywords' => 'shehanly blog, private online tools, free developer tools guides, password security, pdf converter safety, jwt decoder',
+             'intro' => 'Short, practical articles from the builder of Shehanly. No fluff. Each post solves one problem and points you at the free tool that does the work.',
+             'body' => [
+                 ['h2' => 'Latest posts'],
+                 'New writing ships here first. Every article is written to rank, to teach, and to send you back into a tool you can actually use.',
+                 ['link' => ['href' => '/jwt-decoder-guide', 'text' => 'How to decode a JWT in your browser without leaking the token (30 Aug 2026)']],
+                 ['link' => ['href' => '/pdf-to-word-guide', 'text' => 'How to convert a PDF to Word online without leaking the file (29 Aug 2026)']],
+                 ['link' => ['href' => '/strong-password-guide', 'text' => 'How to generate a strong password in your browser (27 Aug 2026)']],
+                 ['link' => ['href' => '/private-online-tools-guide', 'text' => 'How to use free online tools without giving away your data (26 Aug 2026)']],
+                 ['link' => ['href' => '/education-guides', 'text' => 'Education guides: Excel, Word, PowerPoint and defensive security literacy']],
+                 'Want a topic covered next? Use the Contact page and say exactly what you were trying to do when a random tool site made you hesitate.'
+             ],
+             'faq' => [
+                 ['How often is the blog updated?', 'New posts go up when there is a real problem worth solving, not on a fake daily calendar.'],
+                 ['Are these posts sales pages?', 'No. The tools stay free. The writing exists to teach and to earn search traffic the honest way.'],
+             ],
+         ],
+         'jwt-decoder-guide' => [
+             'slug' => 'jwt-decoder-guide',
+             'category' => 'Guides',
+             'type' => 'page',
+             'nav' => 'JWT Decoder Guide',
+             'published' => '2026-08-30',
+             'title' => 'How to Decode a JWT in Your Browser Without Leaking the Token (2026)',
+             'h1' => 'How to decode a JWT in your browser without leaking the token',
+             'description' => 'A 2026 guide to inspecting JSON Web Token headers, payloads and expiry dates in your browser. Learn what a decoder should never do, why you must not paste a signing secret, and how to spot an expired session locally.',
+             'keywords' => 'jwt decoder online, decode json web token, jwt payload inspector, jwt expiry check, private jwt debugger, shehanly',
+             'intro' => 'A JWT is a session in three parts. The moment you paste it into a random debugger, you have handed someone else a live login. This guide shows how to read the header and payload in the tab, check expiry, and keep the signing key off the page.',
+             'body' => [
+                 'Last updated: 30 August 2026. Written for developers, testers and anyone who just got a 401 and needs to see what is inside the token without sending it to a stranger.',
+                 ['h2' => 'What a JWT actually is'],
+                 'A JSON Web Token is three Base64URL segments split by dots: header, payload, signature. The first two are readable by anyone who has the string. The third proves the first two were not edited, but only if you already hold the secret or public key. Decoding is not verifying. Those are different jobs.',
+                 'The header names the algorithm. The payload carries claims such as sub, iss, aud, iat, nbf and exp. The signature is a blob. If you can read the payload in a decoder, so can anyone who intercepted the token. Treat the whole string like a password that expires.',
+                 ['h2' => 'Why most online JWT debuggers are a bad idea'],
+                 'Plenty of JWT debugger sites look convenient. Some send the token to a server so they can verify it. Some ask you to paste the HMAC secret or a private key into the same form. That is how a support session becomes a stolen session.',
+                 'A token pasted into a third-party page can be logged, cached, or replayed against your API until exp hits. A signing secret pasted into the same box is worse: it lets someone mint new tokens, not just read one.',
+                 ['h2' => 'The safe pattern: decode in the tab, never verify with a secret on a website'],
+                 'Shehanly splits the JWT on the client, Base64URL-decodes the header and payload, and renders registered claims as local dates. There is no network request. There is no verify button that asks for a key. If you need to verify a signature, do it in your own backend or a local CLI you control.',
+                 ['link' => ['href' => '/jwt-decoder', 'text' => 'Open the browser JWT decoder']],
+                 ['h2' => 'A 60-second workflow when an API returns 401'],
+                 ['ul' => [
+                     'Copy the token from the Authorization header or from localStorage. Do not paste it into Slack, email or a ticket unless it is already revoked.',
+                     'Open the decoder on shehanly.com. Confirm the URL. Paste once.',
+                     'Read alg and typ in the header. If alg is none, stop. That token is not signed.',
+                     'Check exp, iat and nbf as local times. An expired token is the most common 401. A token that is not valid yet means the clock or nbf is the problem.',
+                     'Read aud and iss. A token minted for another app will fail even when it is not expired.',
+                     'Close the tab. Do not leave a production access token sitting in a browser field on a shared machine.'
+                 ]],
+                 ['link' => ['href' => '/jwt-decoder', 'text' => 'Decode the token locally now']],
+                 ['h2' => 'What the payload is allowed to tell you'],
+                 ['ul' => [
+                     'exp is seconds since epoch. If it is in the past, refresh. Do not keep retrying the same string.',
+                     'iat tells you when it was minted. A token issued days ago on a short-lived API is a smell.',
+                     'nbf means not before. A future nbf looks like an expiry bug and is often a timezone mistake.',
+                     'aud and iss tell you whether this token belongs to this API at all.',
+                     'Custom claims can hold roles, tenant ids or email. That is still PII. Do not screenshot it into a public channel.'
+                 ]],
+                 ['h2' => 'What a decoder must never do'],
+                 ['ul' => [
+                     'It must not send the token to a server for pretty printing. Splitting on dots is a local job.',
+                     'It must not ask for a signing secret or a private key. Verification does not belong in a public webpage.',
+                     'It must not store tokens in localStorage as a history feature unless you asked for it.',
+                     'It must not offer to email you the decoded payload. That is a second copy of a live session.'
+                 ]],
+                 'A fast test: open the decoder, watch the Network tab, paste a dummy token. If a request fires with the JWT in the body, close the tab.',
+                 ['h2' => 'Decode versus verify'],
+                 'Decoding answers what this string claims. Verifying answers whether someone you trust signed it. Only verification stops a forged payload. A website that offers both usually wants your secret. Keep verification in your API, your test suite or a local tool.',
+                 'If you are debugging an app you own, log the claim set on the server after verification, not the raw token in a public decoder. If you are debugging an app you do not own, you still should not paste a production bearer token into a random site.',
+                 ['h2' => 'When the token is not the only problem'],
+                 'If the payload looks fine and the API still rejects it, the usual causes are a wrong audience, a clock skew larger than the leeway, a rotated signing key, or an Authorization header that lost the Bearer prefix. Formatting the JSON of the payload on the same machine can help you see a typo in a custom claim.',
+                 ['link' => ['href' => '/json-formatter', 'text' => 'Format the payload JSON locally']],
+                 ['link' => ['href' => '/base64', 'text' => 'Base64 encode or decode a segment by hand']],
+                 ['h2' => 'Why this post sits next to the tool'],
+                 'People search jwt decoder because a request failed and they need the claims now. The honest page tells them decoding is local, verification is not a website job, and then hands them the inspector. That is the Shehanly pattern: rank for the job, teach the risk, finish the job.',
+                 ['link' => ['href' => '/private-online-tools-guide', 'text' => 'How to use free online tools without giving away your data']],
+                 ['link' => ['href' => '/strong-password-guide', 'text' => 'Generate a strong password in the browser']],
+                 ['link' => ['href' => '/blog', 'text' => 'Back to the blog index']]
+             ],
+             'faq' => [
+                 ['Does decoding a JWT verify the signature?', 'No. Decoding only reads the header and payload. Verification needs a secret or public key and should happen in software you control, not on a public website.'],
+                 ['Is it safe to paste a production access token here?', 'The Shehanly decoder never sends the token to a server. A browser extension or a shared computer can still read the page. Prefer a dummy or already-revoked token when you can.'],
+                 ['Why does Shehanly refuse to take my signing secret?', 'Because a signing secret lets anyone mint new tokens. A public webpage is the wrong place to keep that key.'],
+             ],
+         ],
+];
