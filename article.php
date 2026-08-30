@@ -5,7 +5,17 @@ require __DIR__ . '/config/bootstrap.php';
 $routes = require __DIR__ . '/config/routes.php';
 $extraPages = __DIR__ . '/config/pages.php';
 if (is_file($extraPages)) {
-    $routes = array_replace($routes, require $extraPages);
+    $loaded = require $extraPages;
+    if (is_array($loaded)) {
+        $routes = array_replace($routes, $loaded);
+    }
+}
+$morePages = __DIR__ . '/config/pages-extra.php';
+if (is_file($morePages)) {
+    $loaded = require $morePages;
+    if (is_array($loaded)) {
+        $routes = array_replace($routes, $loaded);
+    }
 }
 
 $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
