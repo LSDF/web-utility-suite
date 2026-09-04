@@ -14,6 +14,7 @@ return [
              'body' => [
                  ['h2' => 'Latest posts'],
                  'New writing ships here first. Every article is written to rank, to teach, and to send you back into a tool you can actually use.',
+                 ['link' => ['href' => '/word-to-pdf-guide', 'text' => 'How to convert Word to PDF online without leaking the document (4 Sep 2026)']],
                  ['link' => ['href' => '/json-formatter-guide', 'text' => 'How to format and validate JSON without sending the payload (3 Sep 2026)']],
                  ['link' => ['href' => '/hash-generator-guide', 'text' => 'How to generate MD5 and SHA-256 hashes without uploading the file (2 Sep 2026)']],
                  ['link' => ['href' => '/qr-code-guide', 'text' => 'How to generate a QR code without uploading your data (1 Sep 2026)']],
