@@ -22,6 +22,13 @@ if (is_file($morePages)) {
         $routes = array_replace($routes, $loaded);
     }
 }
+$legacyPages = __DIR__ . '/config/pages-more.php';
+if (is_file($legacyPages)) {
+    $loaded = require $legacyPages;
+    if (is_array($loaded)) {
+        $routes = array_replace($routes, $loaded);
+    }
+}
 $siteUrl = rtrim((string) env('SITE_URL', 'https://' . ($_SERVER['HTTP_HOST'] ?? 'localhost')), '/');
 $today = gmdate('Y-m-d');
 

@@ -17,6 +17,13 @@ if (is_file($morePages)) {
         $routes = array_replace($routes, $loaded);
     }
 }
+$legacyPages = __DIR__ . '/config/pages-more.php';
+if (is_file($legacyPages)) {
+    $loaded = require $legacyPages;
+    if (is_array($loaded)) {
+        $routes = array_replace($routes, $loaded);
+    }
+}
 
 $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
 $slug = strtolower(preg_replace('/[^a-z0-9\-]/i', '', trim((string) $path, '/')));
