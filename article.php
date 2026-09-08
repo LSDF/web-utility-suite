@@ -3,23 +3,8 @@ declare(strict_types=1);
 require __DIR__ . '/config/bootstrap.php';
 
 $routes = require __DIR__ . '/config/routes.php';
-$extraPages = __DIR__ . '/config/pages.php';
-if (is_file($extraPages)) {
-    $loaded = require $extraPages;
-    if (is_array($loaded)) {
-        $routes = array_replace($routes, $loaded);
-    }
-}
-$morePages = __DIR__ . '/config/pages-extra.php';
-if (is_file($morePages)) {
-    $loaded = require $morePages;
-    if (is_array($loaded)) {
-        $routes = array_replace($routes, $loaded);
-    }
-}
-$legacyPages = __DIR__ . '/config/pages-more.php';
-if (is_file($legacyPages)) {
-    $loaded = require $legacyPages;
+foreach (glob(__DIR__ . '/config/pages*.php') ?: [] as $pageFile) {
+    $loaded = require $pageFile;
     if (is_array($loaded)) {
         $routes = array_replace($routes, $loaded);
     }
