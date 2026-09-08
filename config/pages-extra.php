@@ -123,3 +123,4 @@ return [
             ['PNG or SVG?', 'SVG for print templates that will be resized. PNG for a one-off sticker. Both come from the same local drawing.'],
         ],
     ],
+];
