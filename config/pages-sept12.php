@@ -45,7 +45,7 @@ return [
         'type' => 'page',
         'nav' => 'Browser-Only Tools Guide',
         'published' => '2026-09-12',
-        'title' => 'Which Shehanly Tools Stay in Your Browser (and Which Do Not) \xe2\x80\x94 2026',
+        'title' => 'Which Shehanly Tools Stay in Your Browser (and Which Do Not) - 2026',
         'h1' => 'Which Shehanly tools stay in your browser, and which ones do not',
         'description' => 'A 2026 map of Shehanly tools: the nine that never leave the tab, the six that travel through a PHP proxy, how to verify the difference in DevTools, and a 30-second rule for what you should paste where.',
         'keywords' => 'client side online tools, browser only tools no upload, private developer tools 2026, shehanly privacy, php proxy tools, no signup utilities, web crypto tools',
